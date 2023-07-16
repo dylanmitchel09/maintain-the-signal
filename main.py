@@ -1,12 +1,12 @@
 # File: main.py
 # Project of: CS 469
-# Date Modified: July 10, 2023
+# Date Modified: July 16, 2023
 # Description: Mantain the Signal Project
-
+import sys
 import tkinter as tk
 from tkinter import filedialog
 import pandas as pd
-
+from geopy.geocoders import Nominatim
 
 # Resources:
 
@@ -44,11 +44,35 @@ def parse_arr_preprocesssed(filename):
     arr_preprocessed = arr_preprocessed.to_numpy()
     return arr_preprocessed
 
+def find_location():
+    """
+        Function: find_location
+        Parameters:
+        Return: location
+        Description:
+        Get Lat Lon from user input
+    """
+    geolocator = Nominatim(user_agent="maintain-the-signal")
+    user_location = input("Enter Location: ")
+    location = geolocator.geocode(user_location)
+    print(location.address)
+    print((location.latitude, location.longitude))
+    return location
+
+def filter_data(arr_preprocessed):
+    """
+            Function: filter_data
+            Parameters: arr_preproccesed
+            Return: arr_processed
+            Description:
+            Filtering data from the user location
+        """
+    return None
 
 if __name__ == '__main__':
     # Read CSV
     f_file = read_filename()
     # Parse Selected Cols
     f_parsed_arr = parse_arr_preprocesssed(f_file)
-    # Print Parsed Array
-    print(f_parsed_arr)
+    # Filter based on location
+    f_location = find_location()

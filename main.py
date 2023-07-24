@@ -1,10 +1,12 @@
 # File: main.py
 # Project of: CS 469
-# Date Modified: July 16, 2023
+# Date Modified: July 23, 2023
 # Description: Mantain the Signal Project
 import sys
 import tkinter as tk
 from tkinter import filedialog
+
+import numpy as np
 import pandas as pd
 from geopy.geocoders import Nominatim
 
@@ -55,19 +57,55 @@ def find_location():
     geolocator = Nominatim(user_agent="maintain-the-signal")
     user_location = input("Enter Location: ")
     location = geolocator.geocode(user_location)
-    print(location.address)
-    print((location.latitude, location.longitude))
     return location
 
-def filter_data(arr_preprocessed):
+def condition_data_lat(arr_preprocessed, location):
     """
-            Function: filter_data
-            Parameters: arr_preproccesed
-            Return: arr_processed
+            Function: condition_data_lat
+            Parameters: arr_preproccesed, location
+            Return: arr_condition_lat
             Description:
-            Filtering data from the user location
+            Filtering Latitude from the user input
         """
-    return None
+    arr_condition_lat = np.logical_and(arr_preprocessed[0:,2][0:] > location.latitude - 1, arr_preprocessed[0:,2][0:] < location.latitude + 1)
+    return arr_condition_lat
+
+def condition_data_lon(arr_preprocessed, location):
+    """
+            Function: condition_data_lon
+            Parameters: arr_preproccesed, location
+            Return: arr_condition_lat
+            Description:
+            Filtering Longitude from the user input
+        """
+    arr_condition_lon = np.logical_and(arr_preprocessed[0:,3][0:] < location.longitude - -1, arr_preprocessed[0:,3][0:] > location.longitude + -1)
+    return arr_condition_lon
+
+def select_arr_download(arr_condition_lat, arr_preprocessed):
+    """
+            Function: arr_download
+            Parameters: arr_condition_lat, arr_condition_lon, arr_preprocessed
+            Return: arr_download
+            Description:
+            Take the Download Speed from the user input
+    """
+    arr_download = np.extract(arr_condition_lat, arr_preprocessed[0:,4])
+    print(arr_download)
+    return arr_download
+
+def select_arr_upload(arr_condition_lat, arr_preprocessed):
+    """
+            Function: arr_download
+            Parameters: arr_condition_lat, arr_condition_lon, arr_preprocessed
+            Return: arr_download
+            Description:
+            Take the Upload Speed from the user input
+    """
+    arr_upload = np.extract(arr_condition_lat, arr_preprocessed[0:,5])
+    print(arr_upload)
+    return arr_upload
+
+def select_arr_
 
 if __name__ == '__main__':
     # Read CSV
@@ -76,3 +114,9 @@ if __name__ == '__main__':
     f_parsed_arr = parse_arr_preprocesssed(f_file)
     # Filter based on location
     f_location = find_location()
+    # Condition for the filtering
+    f_condition_data_lat = condition_data_lat(f_parsed_arr, f_location)
+    f_condition_data_lon = condition_data_lon(f_parsed_arr, f_location)
+    # Select Download & Upload based on Location
+    f_select_arr_download = select_arr_download(f_condition_data_lat, f_parsed_arr)
+    f_select_arr_upload = select_arr_upload(f_condition_data_lat, f_parsed_arr)

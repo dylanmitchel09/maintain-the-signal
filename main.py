@@ -5,10 +5,10 @@
 
 import tkinter as tk
 from tkinter import filedialog
-
 import numpy as np
 import pandas as pd
 from geopy.geocoders import Nominatim
+import warnings
 
 
 def read_filename():
@@ -131,8 +131,10 @@ def select_arr_download_tmobile(arr_condition_tmobile, arr_preprocessed_tmobile)
             Take the Download Speed from the user input
     """
     arr_download_tmobile = np.extract(arr_condition_tmobile, arr_preprocessed_tmobile[0:, 4])
+    arr_download_tmobile = (np.mean(arr_download_tmobile) * 0.001)
+    arr_download_tmobile = np.around(arr_download_tmobile, decimals=2)
     print("\n")
-    print("T-Mobile Average Download Speed: ", (np.mean(arr_download_tmobile) * 0.001), " Mb/s")
+    print("T-Mobile Average Download Speed: ", arr_download_tmobile, " Mb/s")
     return arr_download_tmobile
 
 
@@ -145,7 +147,9 @@ def select_arr_upload_tmobile(arr_condition_tmobile, arr_preprocessed_tmobile):
             Take the Upload Speed from the user input
     """
     arr_upload_tmobile = np.extract(arr_condition_tmobile, arr_preprocessed_tmobile[0:, 5])
-    print("T-Mobile Average Upload Speed: ", (np.mean(arr_upload_tmobile) * 0.001), " Mb/s")
+    arr_upload_tmobile = (np.mean(arr_upload_tmobile) * 0.001)
+    arr_upload_tmobile = np.around(arr_upload_tmobile, decimals=2)
+    print("T-Mobile Average Upload Speed: ", arr_upload_tmobile, " Mb/s")
     return arr_upload_tmobile
 
 
@@ -158,8 +162,10 @@ def select_arr_download_verizon(arr_condition_verizon, arr_preprocessed_verizon)
             Take the Download Speed from the user input
     """
     arr_download_verizon = np.extract(arr_condition_verizon, arr_preprocessed_verizon[0:, 4])
+    arr_download_verizon = (np.mean(arr_download_verizon) * 0.001)
+    arr_download_verizon = np.around(arr_download_verizon, decimals=2)
     print("\n")
-    print("Verizon Average Download Speed: ", (np.mean(arr_download_verizon) * 0.001), " Mb/s")
+    print("Verizon Average Download Speed: ", arr_download_verizon, " Mb/s")
     return arr_download_verizon
 
 
@@ -172,7 +178,9 @@ def select_arr_upload_verizon(arr_condition_verizon, arr_preprocessed_verizon):
             Take the Upload Speed from the user input
     """
     arr_upload_verizon = np.extract(arr_condition_verizon, arr_preprocessed_verizon[0:, 5])
-    print("Verizon Average Upload Speed: ", (np.mean(arr_upload_verizon) * 0.001), " Mb/s")
+    arr_upload_verizon = (np.mean(arr_upload_verizon) * 0.001)
+    arr_upload_verizon = np.around(arr_upload_verizon, decimals=2)
+    print("Verizon Average Upload Speed: ", arr_upload_verizon, " Mb/s")
     return arr_upload_verizon
 
 
@@ -185,8 +193,10 @@ def select_arr_download_att(arr_condition_att, arr_preprocessed_att):
             Take the Download Speed from the user input
     """
     arr_download_att = np.extract(arr_condition_att, arr_preprocessed_att[0:, 4])
+    arr_download_att = (np.mean(arr_download_att) * 0.001)
+    arr_download_att = np.around(arr_download_att, decimals=2)
     print("\n")
-    print("AT&T Average Download Speed: ", (np.mean(arr_download_att) * 0.001), " Mb/s")
+    print("AT&T Average Download Speed: ", arr_download_att, " Mb/s")
     return arr_download_att
 
 
@@ -199,11 +209,15 @@ def select_arr_upload_att(arr_condition_att, arr_preprocessed_att):
             Take the Upload Speed from the user input
     """
     arr_upload_att = np.extract(arr_condition_att, arr_preprocessed_att[0:, 5])
-    print("AT&T Average Upload Speed: ", (np.mean(arr_upload_att) * 0.001), " Mb/s")
+    arr_upload_att = (np.mean(arr_upload_att) * 0.001)
+    arr_upload_att = np.around(arr_upload_att, decimals=2)
+    print("AT&T Average Upload Speed: ", arr_upload_att, " Mb/s")
     return arr_upload_att
 
 
 if __name__ == '__main__':
+    # Remove Runtime Warning for nan Data
+    warnings.filterwarnings("ignore", category=RuntimeWarning)
     # Read CSV
     f_file = read_filename()
     # Parse Selected Cols

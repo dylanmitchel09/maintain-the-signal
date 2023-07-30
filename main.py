@@ -107,13 +107,13 @@ def condition_data_tmobile(arr_preprocessed_tmobile, location):
             Filtering Location & T-Mobile from the user input
         """
     arr_condition_carrier_tmobile = np.logical_or(arr_preprocessed_tmobile[0:, 1][0:] == "T-Mobile LTE",
-                                                  arr_preprocessed_tmobile[0:, 1][0:] == "T-Mobile NRNSA",
-                                                  arr_preprocessed_tmobile[0:, 1][0:] == "T-Mobile NR")
+                                          arr_preprocessed_tmobile[0:, 1][0:] == "T-Mobile NRNSA",
+                                          arr_preprocessed_tmobile[0:, 1][0:] == "T-Mobile NR")
     arr_condition_lat = np.logical_and(arr_preprocessed_tmobile[0:, 2][0:] > location.latitude - 1,
                                        arr_preprocessed_tmobile[0:, 2][0:] < location.latitude + 1)
     arr_condition_lon = np.logical_and(arr_preprocessed_tmobile[0:, 3][0:] < location.longitude - -1,
                                        arr_preprocessed_tmobile[0:, 3][0:] > location.longitude + -1)
-    arr_condition_tmobile = np.logical_and(arr_condition_lat, arr_condition_lon, arr_condition_carrier_tmobile)
+    arr_condition_tmobile = np.logical_and(arr_condition_carrier_tmobile, arr_condition_lat, arr_condition_lon)
     return arr_condition_tmobile
 
 
@@ -126,13 +126,13 @@ def condition_data_verizon(arr_preprocessed_verizon, location):
             Filtering Location & Verizon from the user input
         """
     arr_condition_carrier_verizon = np.logical_or(arr_preprocessed_verizon[0:, 1][0:] == "Verizon LTE",
-                                                  arr_preprocessed_verizon[0:, 1][0:] == "Verizon NRNSA",
-                                                  arr_preprocessed_verizon[0:, 1][0:] == "Verizon NR")
+                                          arr_preprocessed_verizon[0:, 1][0:] == "Verizon NRNSA",
+                                          arr_preprocessed_verizon[0:, 1][0:] == "Verizon NR")
     arr_condition_lat = np.logical_and(arr_preprocessed_verizon[0:, 2][0:] > location.latitude - 1,
                                        arr_preprocessed_verizon[0:, 2][0:] < location.latitude + 1)
     arr_condition_lon = np.logical_and(arr_preprocessed_verizon[0:, 3][0:] < location.longitude - -1,
                                        arr_preprocessed_verizon[0:, 3][0:] > location.longitude + -1)
-    arr_condition_verizon = np.logical_and(arr_condition_lat, arr_condition_lon, arr_condition_carrier_verizon)
+    arr_condition_verizon = np.logical_and(arr_condition_carrier_verizon, arr_condition_lat, arr_condition_lon)
     return arr_condition_verizon
 
 
@@ -145,13 +145,13 @@ def condition_data_att(arr_preprocessed_att, location):
             Filtering Location & AT&T from the user input
         """
     arr_condition_carrier_att = np.logical_or(arr_preprocessed_att[0:, 1][0:] == "AT&T LTE",
-                                              arr_preprocessed_att[0:, 1][0:] == "AT&T NRNSA",
-                                              arr_preprocessed_att[0:, 1][0:] == "AT&T NR")
+                                          arr_preprocessed_att[0:, 1][0:] == "AT&T NRNSA",
+                                          arr_preprocessed_att[0:, 1][0:] == "AT&T NR")
     arr_condition_lat = np.logical_and(arr_preprocessed_att[0:, 2][0:] > location.latitude - 1,
                                        arr_preprocessed_att[0:, 2][0:] < location.latitude + 1)
     arr_condition_lon = np.logical_and(arr_preprocessed_att[0:, 3][0:] < location.longitude - -1,
                                        arr_preprocessed_att[0:, 3][0:] > location.longitude + -1)
-    arr_condition_att = np.logical_and(arr_condition_lat, arr_condition_lon, arr_condition_carrier_att)
+    arr_condition_att = np.logical_and(arr_condition_carrier_att, arr_condition_lat, arr_condition_lon)
     return arr_condition_att
 
 
@@ -216,7 +216,7 @@ def select_arr_download_att(arr_condition_att, arr_preprocessed_att):
 
 def select_arr_upload_att(arr_condition_att, arr_preprocessed_att):
     """
-            Function: arr_upload_verizon
+            Function: arr_upload_att
             Parameters: arr_condition_lat, arr_condition_lon, arr_preprocessed
             Return: arr_download
             Description:

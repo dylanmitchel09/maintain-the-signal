@@ -1,6 +1,6 @@
 # File: main.py
 # Project of: CS 469
-# Date Modified: July 29, 2023
+# Date Modified: August 1, 2023
 # Description: Mantain the Signal Project
 
 import tkinter as tk

@@ -214,6 +214,20 @@ def select_arr_upload_att(arr_condition_att, arr_preprocessed_att):
     print("AT&T Average Upload Speed: ", arr_upload_att, " Mb/s")
     return arr_upload_att
 
+def find_fastest_carrier(arr_download_tmobile, arr_upload_tmobile, arr_download_verizon, arr_upload_verizon, arr_download_att, arr_upload_att):
+    fastest_carrier_table = (("", "T-Mobile", "Verizon", "AT&T"), ("Download", arr_download_tmobile, arr_download_verizon, arr_download_att), ("Upload", arr_upload_tmobile, arr_upload_verizon, arr_upload_att))
+
+    max_avg_download = max(fastest_carrier_table[1][1:])
+    max_avg_download_index = fastest_carrier_table[1].index(max_avg_download)
+    max_avg_download_carrier = fastest_carrier_table[0][max_avg_download_index]
+
+    max_avg_upload = max(fastest_carrier_table[2][1:])
+    max_avg_upload_index = fastest_carrier_table[2].index(max_avg_upload)
+    max_avg_upload_carrier = fastest_carrier_table[0][max_avg_upload_index]
+
+    print("\n")
+    print(f"{max_avg_download_carrier} Showed the Fastest Download Speed of {max_avg_download} Mb/s")
+    print(f"{max_avg_upload_carrier} Showed the Fastest Upload Speed of {max_avg_upload} Mb/s")
 
 if __name__ == '__main__':
     # Remove Runtime Warning for nan Data
@@ -235,3 +249,5 @@ if __name__ == '__main__':
     f_select_arr_upload_verizon = select_arr_upload_verizon(f_condition_data_verizon, f_parsed_arr)
     f_select_arr_download_att = select_arr_download_att(f_condition_data_att, f_parsed_arr)
     f_select_arr_upload_att = select_arr_upload_att(f_condition_data_att, f_parsed_arr)
+    # Find the fastest Download & Upload
+    f_find_fastest_carrier = find_fastest_carrier(f_select_arr_download_tmobile,  f_select_arr_upload_tmobile, f_select_arr_download_verizon, f_select_arr_upload_verizon, f_select_arr_download_att, f_select_arr_upload_att)

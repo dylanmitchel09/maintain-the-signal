@@ -1,6 +1,6 @@
 # File: main.py
 # Project of: CS 469
-# Date Modified: August 1, 2023
+# Date Modified: August 2, 2023
 # Description: Mantain the Signal Project
 
 import tkinter as tk
@@ -55,7 +55,6 @@ def find_location():
         Get Lat Lon from user input
     """
     geolocator = Nominatim(user_agent="maintain-the-signal")
-    print("\n")
     user_location = input("Enter Location: ")
     location = geolocator.geocode(user_location)
     print("\n")
@@ -217,6 +216,14 @@ def select_arr_upload_att(arr_condition_att, arr_preprocessed_att):
 
 def find_fastest_carrier(arr_download_tmobile, arr_upload_tmobile, arr_download_verizon, arr_upload_verizon,
                          arr_download_att, arr_upload_att):
+    """
+            Function: find_fastest_carrier
+            Parameters: arr_download_tmobile, arr_upload_tmobile, arr_download_verizon, arr_upload_verizon,
+                         arr_download_att, arr_upload_att
+            Return:
+            Description:
+           Data Storytelling and Find Average for Download and Upload Speed
+    """
     fastest_carrier_table = (
         ("", "T-Mobile", "Verizon", "AT&T"), ("Download", arr_download_tmobile, arr_download_verizon, arr_download_att),
         ("Upload", arr_upload_tmobile, arr_upload_verizon, arr_upload_att))
@@ -225,16 +232,62 @@ def find_fastest_carrier(arr_download_tmobile, arr_upload_tmobile, arr_download_
     max_avg_download_index = fastest_carrier_table[1].index(max_avg_download)
     max_avg_download_carrier = fastest_carrier_table[0][max_avg_download_index]
 
+    if max_avg_download > 15:
+        download_avg_desc = "is Able to Stream 4K UHD Netflix Films"
+    elif 5 < max_avg_download <= 15 :
+        download_avg_desc = "is Able to Stream 1080 Full HD Netflix Films"
+    elif 3 < max_avg_download <= 5:
+        download_avg_desc = "is Able to Stream 720 HD Netflix Films"
+    else:
+        download_avg_desc = "is Not Recommended to Stream Netflix Films"
+
     max_avg_upload = max(fastest_carrier_table[2][1:])
     max_avg_upload_index = fastest_carrier_table[2].index(max_avg_upload)
     max_avg_upload_carrier = fastest_carrier_table[0][max_avg_upload_index]
 
+    if max_avg_upload > 3.8:
+        upload_avg_desc = "is Able to Host Group Zoom Calls in 1080p Full HD"
+    elif 2.6 < max_avg_upload <= 3.8 :
+        upload_avg_desc = "is Able to Host Group Zoom Calls in 720p HD"
+    elif 1 < max_avg_upload <= 2.6:
+        upload_avg_desc = "is Able to Host Group Zoom Calls in High Quality"
+    else:
+        upload_avg_desc = "is not Able to Host Group Zoom Calls"
+
     print("\n")
     print(f"{max_avg_download_carrier} Showed the Fastest Download Speed of {max_avg_download} Mb/s")
+    print(f"{max_avg_download_carrier} {download_avg_desc}")
     print(f"{max_avg_upload_carrier} Showed the Fastest Upload Speed of {max_avg_upload} Mb/s")
+    print(f"{max_avg_upload_carrier} {upload_avg_desc}")
+
+def application_header():
+    """
+            Function: application_header
+            Parameters:
+            Return:
+            Description:
+           Header of the application
+    """
+    print("\n --------------------------------------------------------------------------------------------------------- \n")
+    print("Maintain the Signal (iOS Speedtest Version)")
+    print("\n")
+
+def application_footer():
+    """
+            Function: application_footer
+            Parameters:
+            Return:
+            Description:
+           Footer of the application
+    """
+    print("\n")
+    print("Sources: Ookla Speedtest, Netflix Help Center & Zoom Support \n")
+    print("---------------------------------------------------------------------------------------------------------")
 
 
 if __name__ == '__main__':
+    # Application Header
+    f_application_header = application_header()
     # Remove Runtime Warning for nan Data
     warnings.filterwarnings("ignore", category=RuntimeWarning)
     # Read CSV
@@ -258,3 +311,5 @@ if __name__ == '__main__':
     f_find_fastest_carrier = find_fastest_carrier(f_select_arr_download_tmobile, f_select_arr_upload_tmobile,
                                                   f_select_arr_download_verizon, f_select_arr_upload_verizon,
                                                   f_select_arr_download_att, f_select_arr_upload_att)
+    # Application Footer
+    f_application_footer = application_footer()

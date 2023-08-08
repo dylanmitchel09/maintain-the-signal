@@ -16,14 +16,14 @@ Mantain the Signal requires [Pyhton 3.9](https://www.python.org/downloads/releas
 Install Pyhton followed by pip
 
 ```sh
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py
+$ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+$ python get-pip.py
 ```
 
 Install the application dependencies
 
 ```sh
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ## Running
@@ -31,10 +31,16 @@ pip install -r requirements.txt
 To run Maintain the Signal, use the following command:
 
 ```sh
-python3 main.py
+$ python3 main.py
 ```
 
 You will be prompted to open the Ookla Speedtest CSV file. For example, [SpeedTestExport_20230808.csv](https://github.com/dylanmitchel09/maintain-the-signal/blob/main/SpeedTestExport_20230808.csv) is an example Ookla Speedtest CSV file.
+
+Followed by, you will be prompted to enter the location you want to analyze
+
+```sh
+Enter Location: Oregon State University
+```
 
 Once that is finished, you will have the average upload and download speeds from T-Mobile, AT&T, and Verizon, along with the overall fastest upload and download speeds.
 

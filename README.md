@@ -9,6 +9,19 @@ Note: This application only supports exported CSV files from the Ookla Speedtest
 - Use your own data from Ookla Speedtest for analysis
 - Find speeds based on location within a radius of 1.15 miles
 
+## Workflow
+
+```mermaid
+flowchart TD
+    A[Open .csv File from iOS Ookla Speedtest] --> B{User Enter Location};
+    B --> C[T-Mobile Overall Speed];
+    B --> D[AT&T Overall Speed];
+    B --> E[Verizon Overall Speed];
+    C --> F[Overall Fastest Speed + Explanation];
+    D --> F[Overall Fastest Speed + Explanation];
+    E --> F[Overall Fastest Speed + Explanation];
+```
+
 ## Installation
 
 Mantain the Signal requires [Pyhton 3.9](https://www.python.org/downloads/release/python-3913/) to run.
